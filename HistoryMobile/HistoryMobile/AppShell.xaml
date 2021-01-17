@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:HistoryMobile.Views"
+       Title="AgriApp"
+       xmlns:prism="http://prismlibrary.com"
+       prism:ViewModelLocator.AutowireViewModel="True"
+       x:Class="HistoryMobile.AppShell">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="navy" />
+                <Setter Property="Shell.TitleColor" Value="navy" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="navy"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Gray"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="navy"/>
+            </Style>
+
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}">
+            </Style>
+
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="navy"></Setter>
+            </Style>
+
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="LightBlue"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" 
+                                            Property="Label.TextColor" Value="navy" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid Margin="0"
+                  RowSpacing="0"
+                  Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0"
+                             BackgroundColor="White"
+                             Orientation="Horizontal">
+                    <Label Text="Tìm hiểu lịch sử"
+                           TextColor="navy"
+                           FontAttributes="Bold"
+                           FontSize="Title"
+                           Padding="10"></Label>
+                </StackLayout>
+                <Image Source="lichsu.jpg" 
+                       Grid.Row="1"
+                       Aspect="AspectFill"></Image>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <FlyoutItem Title="Trang chủ" Icon="home.png">
+        <Tab Title="Sự kiện" 
+             Icon="home.png">
+            <ShellContent Route="NewListPage" 
+                          ContentTemplate="{DataTemplate local:NewsListPage}">
+                <ShellContent.Style>
+                    <Style TargetType="SelectableItemsView">
+                        <Setter Property="BackgroundColor" Value="Navy"></Setter>
+                    </Style>
+                </ShellContent.Style>
+            </ShellContent>
+        </Tab>
+        <Tab Title="Nhân vật" Icon="account.png">
+            <ShellContent Route="FamousPeople" ContentTemplate="{DataTemplate local:FamousPeoplePage}"></ShellContent>
+        </Tab>
+        <Tab Title="Video" Icon="youtube.png">
+            <ShellContent Route="VideoHomePage" ContentTemplate="{DataTemplate local:VideoHomePage}"></ShellContent>
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Thông tin ứng dụng" Icon="information.png">
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
+    </FlyoutItem>
+</Shell>

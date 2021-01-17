@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:circleImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="{Binding Title}"
+             prism:Navigation.CanNavigate="True"
+             x:Class="HistoryMobile.Views.FamousPeoplePage">
+    <StackLayout>
+        <ScrollView>
+            <ListView HasUnevenRows="True"
+                      SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                      ItemsSource="{Binding Categories}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0"
+                                   Margin="3"
+                                   CornerRadius="9"
+                                   BorderColor="Purple">
+                                <Grid Padding="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <circleImage:CircleImage Source="{Binding Image}"
+                                                         Grid.Column="0"
+                                                         BorderColor="Purple"
+                                                         BorderThickness="1"
+                                                         Aspect="AspectFill"
+                                                         WidthRequest="50"
+                                                         HeightRequest="50"/>
+                                    <StackLayout Grid.Column="1" 
+                                                 Spacing="0">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="Medium"
+                                               Margin="0"
+                                               Padding="0"
+                                               TextColor="Navy"></Label>
+                                        <Label Text="{Binding Summary}"
+                                               FontSize="14"
+                                               Margin="0"
+                                               Padding="0"
+                                               TextColor="DarkGray"></Label>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2"
+                                                 VerticalOptions="Center">
+                                        <Image Source="chevronright"
+                                               HeightRequest="25"
+                                               VerticalOptions="Center"
+                                               Aspect="AspectFill"
+                                               WidthRequest="25"></Image>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <prism:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" />
+                </ListView.Behaviors>
+            </ListView>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

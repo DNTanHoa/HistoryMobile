@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:Navigation.CanNavigate="True"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             Title="{Binding Title}"
+             x:Name="NewsList"
+             x:Class="HistoryMobile.Views.NewsListPage">
+    <ContentPage.Content>
+        <RefreshView RefreshColor="White"
+                     BackgroundColor="Navy">
+            <ScrollView>
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0"
+                             Padding="5"
+                             Orientation="Horizontal">
+                        <ScrollView Orientation="Horizontal"
+                                    BackgroundColor="Transparent">
+                            <StackLayout BindableLayout.ItemsSource="{Binding Categories, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                                         x:Name="ListCategory"
+                                         Orientation="Horizontal">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Padding="4"
+                                               BorderColor="Navy"
+                                               CornerRadius="50">
+                                            <Label Text="{Binding Name}"
+                                                   HorizontalOptions="Center"
+                                                   Margin="0"
+                                                   Padding="4"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalOptions="Center"
+                                                   LineBreakMode="WordWrap"
+                                                   TextColor="White">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding IsActive, UpdateSourceEventName=PropertyChanged}" Value="True">
+                                                                <Setter Property="TextColor" Value="White"></Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Label" Binding="{Binding IsActive, UpdateSourceEventName=PropertyChanged}" Value="False">
+                                                                <Setter Property="TextColor" Value="Navy"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                            <Frame.Style>
+                                                <Style TargetType="Frame">
+                                                    <Style.Triggers>
+                                                        <DataTrigger TargetType="Frame" Binding="{Binding IsActive, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}" Value="True">
+                                                            <Setter Property="BackgroundColor" Value="Navy"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger TargetType="Frame" Binding="{Binding IsActive, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}" Value="False">
+                                                            <Setter Property="BackgroundColor" Value="White"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Frame.Style>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference NewsList},Path=BindingContext.CategoryTappedCommand}"
+                                                                      CommandParameter="{Binding Oid}"></TapGestureRecognizer>
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2">
+                        <ListView ItemsSource="{Binding Events}"
+                                  SelectedItem="{Binding }"
+                                  HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Margin="5">
+                                            <Frame Margin="0"
+                                                   Padding="0"
+                                                   BorderColor="Transparent"
+                                                   CornerRadius="8">
+                                                <Image Aspect="AspectFill"
+                                                       Grid.Column="0"
+                                                       HeightRequest="180"
+                                                       Source="{Binding Image}"></Image>
+                                            </Frame>
+                                            <Label Text="{Binding Title}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="Title"
+                                                   Margin="5"
+                                                   FontFamily="Times New Roman"
+                                                   TextColor="navy"></Label>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <StackLayout Grid.Column="1">
+                                                    <Label LineBreakMode="WordWrap"
+                                                       FontSize="14"
+                                                       MaxLines="4"
+                                                       Text="{Binding Summary}"></Label>
+                                                    <Label Text=""
+                                                       TextColor="navy"
+                                                       FontSize="11"></Label>
+                                                </StackLayout>
+                                                <StackLayout HorizontalOptions="EndAndExpand"
+                                                             Orientation="Horizontal"
+                                                             Grid.Column="1"
+                                                             Margin="3"
+                                                             VerticalOptions="EndAndExpand">
+                                                    <Label Text="{Binding Source, StringFormat='Nguồn : {0}'}"
+                                                           FontSize="12"
+                                                           HorizontalOptions="EndAndExpand"
+                                                           VerticalOptions="CenterAndExpand"
+                                                           TextColor="Navy"></Label>
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.Behaviors>
+                                <prism:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTapCommand}" />
+                            </ListView.Behaviors>
+                        </ListView>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
