@@ -92,6 +92,6 @@
         </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Thông tin ứng dụng" Icon="information.png">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
+        <ShellContent ContentTemplate="{DataTemplate local:AboutPage}"></ShellContent>
     </FlyoutItem>
 </Shell>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="HistoryMobile.Backend.Module.BusinessObjects.FamousPeople">
+      <OwnMembers>
+        <Member Name="Detail" PropertyEditorType="HistoryMobile.Backend.Module.Blazor.Editors.HtmlEditorProperty" RowCount="10" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="20.2.4.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="FamousPeople_DetailView">
+      <Items>
+        <PropertyEditor Id="Detail" RowCount="8" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

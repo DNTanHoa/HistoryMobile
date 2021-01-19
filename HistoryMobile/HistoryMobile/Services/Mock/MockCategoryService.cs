@@ -82,7 +82,7 @@ namespace HistoryMobile.Services
             new CategoryVideo
             {
                 Name = "Người nổi tiếng",
-                Image = "https://yt3.ggpht.com/ytc/AAUvwnhjXtSx-nCmm6fHw9tKojfD6QceKeK6FrXH1M5EgA=s88-c-k-c0x00ffffff-no-rjhttps://yt3.ggpht.com/ytc/AAUvwniUcFuLxvlSAMAU-ANghhsOX05AQZwk4gA65wW7sA=s88-c-k-c0x00ffffff-no-rj"
+                Image = "https://yt3.ggpht.com/ytc/AAUvwniUcFuLxvlSAMAU-ANghhsOX05AQZwk4gA65wW7sA=s88-c-k-c0x00ffffff-no-rj"
             },
             new CategoryVideo
             {

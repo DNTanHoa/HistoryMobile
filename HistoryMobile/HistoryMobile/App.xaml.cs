@@ -40,10 +40,13 @@ namespace HistoryMobile
             containerRegistry.RegisterSingleton<IHistoryEventService, MockHistoryEventService>();
             containerRegistry.RegisterSingleton<ICategoryService, MockCategoryService>();
             containerRegistry.RegisterSingleton<IFamousPeopleService, MockFamousPeopleService>();
+            containerRegistry.RegisterSingleton<IVideoService, MockVideoService>();
 
             #endregion
+
             containerRegistry.RegisterForNavigation<FamousPeopleListPage, FamousPeopleListPageViewModel>();
             containerRegistry.RegisterForNavigation<FamousPeopleDetailPage, FamousPeopleDetailPageViewModel>();
+            containerRegistry.RegisterForNavigation<VideoDetailPage, VideoDetailPageViewModel>();
         }
     }
 }

@@ -30,6 +30,7 @@
                 </StackLayout>
                 <SearchBar Placeholder="Tìm kiếm (tên)..."></SearchBar>
                 <ListView ItemsSource="{Binding FamousPeoples}"
+                          SelectedItem="{Binding SelectedFamousPeople, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                           HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -58,8 +59,7 @@
                     </ListView.ItemTemplate>
                     <ListView.Behaviors>
                         <prism:EventToCommandBehavior EventName="ItemTapped"
-                                                      Command="{Binding ItemTappedCommand}"
-                                                      CommandParameter="Oid"/>
+                                                      Command="{Binding ItemTappedCommand}"/>
                     </ListView.Behaviors>
                 </ListView>
             </StackLayout>

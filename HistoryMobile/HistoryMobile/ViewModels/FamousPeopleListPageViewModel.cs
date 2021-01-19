@@ -48,6 +48,17 @@ namespace HistoryMobile.ViewModels
             }
         }
 
+        private FamousPeople selectedFamousPeople;
+        public FamousPeople SelectedFamousPeople
+        {
+            get => selectedFamousPeople;
+            set
+            {
+                SetProperty(ref selectedFamousPeople, value);
+                RaisePropertyChanged(nameof(SelectedFamousPeople));
+            }
+        }
+
         #region Command
 
         public DelegateCommand<object> ItemTappedCommand { get; private set; }
@@ -55,7 +66,8 @@ namespace HistoryMobile.ViewModels
         public async Task ItemTappedCommandExecute(object Oid)
         {
             var parameters = new NavigationParameters();
-            parameters.Add("Oid", Oid);
+            parameters.Add("Oid", SelectedFamousPeople.Oid);
+            parameters.Add("CategoryOid", CategoryOid);
             await NavigationService.NavigateAsync("FamousPeopleDetailPage", parameters);
         }
 
@@ -67,6 +79,7 @@ namespace HistoryMobile.ViewModels
 
             string CategoryOid = parameters.GetValue<string>("CategoryOid");
 
+            this.CategoryOid = CategoryOid;
             this.Title = CategoryOid;
 
             this.FamousPeoples = new ObservableCollection<FamousPeople>(

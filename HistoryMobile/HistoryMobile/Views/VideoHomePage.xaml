@@ -9,6 +9,7 @@
     <StackLayout>
         <ScrollView>
             <ListView HasUnevenRows="True"
+                      SelectedItem="{Binding CategoryVideo, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                       ItemsSource="{Binding Categories}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -53,6 +54,10 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <prism:EventToCommandBehavior EventName="ItemTapped" 
+                                                  Command="{Binding ItemTappedCommand}"/>
+                </ListView.Behaviors>
             </ListView>
         </ScrollView>
     </StackLayout>

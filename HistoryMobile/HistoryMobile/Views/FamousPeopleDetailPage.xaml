@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True"
              Title="{Binding Title}"
              prism:Navigation.CanNavigate="True"
              x:Class="HistoryMobile.Views.FamousPeopleDetailPage">

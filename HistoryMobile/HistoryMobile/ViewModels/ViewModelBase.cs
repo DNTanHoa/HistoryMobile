@@ -10,7 +10,7 @@ namespace HistoryMobile.ViewModels
 {
     public class ViewModelBase : BindableBase, IInitialize, INavigationAware, IDestructible
     {
-        protected INavigationService NavigationService { get; private set; }
+        protected INavigationService NavigationService { get; set; }
 
         private string _title;
         public string Title
@@ -26,7 +26,7 @@ namespace HistoryMobile.ViewModels
             BackCommand = new DelegateCommand(async () => await BackCommandExecute());
         }
 
-        public DelegateCommand BackCommand { get; private set; }
+        public DelegateCommand BackCommand { get; set; }
 
         public async Task BackCommandExecute()
         {

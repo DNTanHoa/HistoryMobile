@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using HistoryMobile.Backend.Module.Blazor.Editors
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<textarea id="@Id"
+          @bind="@Content"
+          readonly=@ComponentModel.ReadOnly
+          class="html-editor"
+          @bind:event="onchange"
+          @attributes=@ComponentModel.Attributes>
+</textarea>
+
+@code {
+    [Parameter]
+    public HtmlInputModel ComponentModel { get; set; }
+
+    public string Content
+    {
+        get => ComponentModel.Value;
+        set => ComponentModel.Value = value;
+    }
+
+    string _id;
+    [Parameter]
+    public string Id
+    {
+        get => _id ?? $"CKEditor_{uid}";
+        set => _id = value;
+    }
+
+    readonly string uid = Guid.NewGuid().ToString().ToLower().Replace("-", "");
+
+    public static RenderFragment Create(HtmlInputModel componentModel) =>
+    @<HtmlEditor ComponentModel=@componentModel />;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JSRuntime.InvokeVoidAsync("CKEditorInterop.init", Id, DotNetObjectReference.Create(this));
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void UpdateEditor()
+    {
+        StateHasChanged();
+        ComponentModel.SetValueFromUI(ComponentModel.Value);
+    }
+}

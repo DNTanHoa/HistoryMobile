@@ -23,6 +23,8 @@ namespace HistoryMobile.ViewModels
 
             Categories = categoryService.GetCategoryVideo();
             this.categoryService = categoryService;
+
+            ItemTappedCommand = new DelegateCommand(async () => await ItemTappedCommandExecute());
         }
 
         private List<CategoryVideo> categories;
@@ -33,13 +35,26 @@ namespace HistoryMobile.ViewModels
             set => SetProperty(ref categories, value);
         }
 
+        private CategoryVideo categoryVideo;
+        public CategoryVideo CategoryVideo
+        {
+            get => categoryVideo;
+            set
+            {
+                SetProperty(ref categoryVideo, value);
+                RaisePropertyChanged(nameof(CategoryVideo));
+            }
+        }
+
         #region command
 
         public DelegateCommand ItemTappedCommand { get; private set; }
 
         public async Task ItemTappedCommandExecute()
         {
-            await NavigationService.NavigateAsync("VideoListPage");
+            var parameters = new NavigationParameters();
+            parameters.Add("CategoryOid", CategoryVideo.Name);
+            await NavigationService.NavigateAsync("VideoDetailPage", parameters);
         }
 
         #endregion
