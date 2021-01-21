@@ -3,6 +3,7 @@ using HistoryMobile.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,19 @@ namespace HistoryMobile.ViewModels
         private readonly ICategoryService categoryService;
 
         public VideoHomePageViewModel(INavigationService navigationService,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IDialogService dialogService)
             : base(navigationService)
         {
             Title = "Video lịch sử";
             this.categoryService = categoryService;
-
-            Categories = categoryService.GetCategoryVideo();
-            this.categoryService = categoryService;
-
+            
             ItemTappedCommand = new DelegateCommand(async () => await ItemTappedCommandExecute());
+
+            Task.Run(() =>
+            {
+                this.Categories = categoryService.GetCategoryVideo();
+            });
         }
 
         private List<CategoryVideo> categories;
@@ -32,7 +36,11 @@ namespace HistoryMobile.ViewModels
         public List<CategoryVideo> Categories
         {
             get => categories;
-            set => SetProperty(ref categories, value);
+            set
+            {
+                SetProperty(ref categories, value);
+                RaisePropertyChanged(nameof(Categories));
+            }
         }
 
         private CategoryVideo categoryVideo;
@@ -55,6 +63,11 @@ namespace HistoryMobile.ViewModels
             var parameters = new NavigationParameters();
             parameters.Add("CategoryOid", CategoryVideo.Name);
             await NavigationService.NavigateAsync("VideoDetailPage", parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
         }
 
         #endregion

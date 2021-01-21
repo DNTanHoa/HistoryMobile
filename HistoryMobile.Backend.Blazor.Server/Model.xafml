@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="SyncFirebase" ImageName="ModelEditor_Localization_Localized" />
+      <Action Id="SyncVideoFirebase" ImageName="ModelEditor_Localization_Localized" />
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="HistoryMobile.Backend.Module.BusinessObjects.FamousPeople">
       <OwnMembers>

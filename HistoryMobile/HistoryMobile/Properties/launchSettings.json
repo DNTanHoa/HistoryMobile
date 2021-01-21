@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HistoryMobile": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

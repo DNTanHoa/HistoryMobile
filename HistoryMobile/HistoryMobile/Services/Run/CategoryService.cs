@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HistoryMobile.Services
 {
-    public class MockCategoryService : ICategoryService
+    public class CategoryService : ICategoryService
     {
         public List<CategoryEvent> GetCategoryEvents()
         {
@@ -20,7 +19,7 @@ namespace HistoryMobile.Services
 
         public List<CategoryVideo> GetCategoryVideo()
         {
-            return MockCategoryVideo;
+            return FirebaseService.Get<CategoryVideo>("/CategoryVideos");
         }
 
         public List<CategoryEvent> MockCateroyEventData = new List<CategoryEvent>()
@@ -71,25 +70,6 @@ namespace HistoryMobile.Services
                 Name = "Các vị tướng, nhà quân sự",
                 Summary = "Thông tin các vị tướng, quân sư, chuyên gia quân sự nổi tiếng"
             }
-        };
-
-        public List<CategoryVideo> MockCategoryVideo = new List<CategoryVideo>()
-        {
-            new CategoryVideo
-            {
-                Name = "Sử lược - Tóm tắt lịch sử",
-                Image = "https://yt3.ggpht.com/ytc/AAUvwnhjXtSx-nCmm6fHw9tKojfD6QceKeK6FrXH1M5EgA=s88-c-k-c0x00ffffff-no-rj"
-            },
-            new CategoryVideo
-            {
-                Name = "Người nổi tiếng",
-                Image = "https://yt3.ggpht.com/ytc/AAUvwniUcFuLxvlSAMAU-ANghhsOX05AQZwk4gA65wW7sA=s88-c-k-c0x00ffffff-no-rj"
-            },
-            new CategoryVideo
-            {
-                Name = "Lịch sử tóm tắt",
-                Image = "https://yt3.ggpht.com/ytc/AAUvwnh0B6LQaynfXPkx_uPNtQ_TrteROrji52Jd5j0u=s88-c-k-c0x00ffffff-no-rj"
-            },
         };
     }
 }

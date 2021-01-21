@@ -4,6 +4,7 @@
        xmlns:local="clr-namespace:HistoryMobile.Views"
        Title="AgriApp"
        xmlns:prism="http://prismlibrary.com"
+       prism:Navigation.CanNavigate="True"
        prism:ViewModelLocator.AutowireViewModel="True"
        x:Class="HistoryMobile.AppShell">
     <Shell.Resources>
