@@ -1,4 +1,5 @@
 ﻿using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -8,27 +9,26 @@ using System.Text;
 namespace HistoryMobile.Backend.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class FamousPeople : XPLiteObject
+    public class FamousPeople : BaseObject
     {
         public FamousPeople(Session session) : base(session)
         {
 
         }
 
-        int id;
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            this.Code = DateTime.Now.ToString("yyyyMMddHHmmsstt");
+        }
+
         string code;
         string image;
         string title;
         string summary;
         string detail;
-
-        [Key]
-        [Browsable(true)]
-        public int Id
-        {
-            get => id;
-            set => SetPropertyValue(nameof(Id), ref id, value); 
-        }
+        string source;
+        bool firebaseSynced;
 
         public string Code
         {
@@ -36,6 +36,7 @@ namespace HistoryMobile.Backend.Module.BusinessObjects
             set => SetPropertyValue(nameof(Code), ref code, value);
         }
 
+        [Size(500)]
         public string Image
         {
             get => image;
@@ -48,10 +49,23 @@ namespace HistoryMobile.Backend.Module.BusinessObjects
             set => SetPropertyValue(nameof(Title), ref title, value);
         }
 
+        [Size(500)]
         public string Summary
         {
             get => summary;
             set => SetPropertyValue(nameof(Summary), ref summary, value);
+        }
+
+        public string Source
+        {
+            get => source;
+            set => SetPropertyValue(nameof(Source), ref source, value);
+        }
+
+        public bool FirebaseSynced
+        {
+            get => firebaseSynced;
+            set => SetPropertyValue(nameof(FirebaseSynced), ref firebaseSynced, value);
         }
 
         [Size(5000)]

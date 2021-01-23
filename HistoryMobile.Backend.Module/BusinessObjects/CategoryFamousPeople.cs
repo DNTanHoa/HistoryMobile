@@ -18,6 +18,8 @@ namespace HistoryMobile.Backend.Module.BusinessObjects
         string code;
         string name;
         string image;
+        string summary;
+        bool firebaseSynced;
 
         [Key]
         [Browsable(true)]
@@ -33,10 +35,24 @@ namespace HistoryMobile.Backend.Module.BusinessObjects
             set => SetPropertyValue(nameof(Name), ref name, value);
         }
 
+        [Size(500)]
         public string Image
         {
             get => image;
             set => SetPropertyValue(nameof(Image), ref image, value);
+        }
+
+        [Size(500)]
+        public string Summary
+        {
+            get => summary;
+            set => SetPropertyValue(nameof(Summary), ref summary, value);
+        }
+
+        public bool FirebaseSynced
+        {
+            get => firebaseSynced;
+            set => SetPropertyValue(nameof(firebaseSynced), ref firebaseSynced, value);
         }
 
         [Association]

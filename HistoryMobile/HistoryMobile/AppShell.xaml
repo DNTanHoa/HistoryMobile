@@ -85,7 +85,7 @@
                 </ShellContent.Style>
             </ShellContent>
         </Tab>
-        <Tab Title="Nhân vật" Icon="account.png">
+        <Tab Route="FamousPeople" Title="Nhân vật" Icon="account.png">
             <ShellContent Route="FamousPeople" ContentTemplate="{DataTemplate local:FamousPeoplePage}"></ShellContent>
         </Tab>
         <Tab Title="Video" Icon="youtube.png">

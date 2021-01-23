@@ -3,6 +3,7 @@ using HistoryMobile.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +15,15 @@ namespace HistoryMobile.ViewModels
     public class FamousPeopleListPageViewModel : ViewModelBase
     {
         private readonly IFamousPeopleService famousPeopleService;
+        private readonly IDialogService dialogService;
 
         public FamousPeopleListPageViewModel(INavigationService navigationService,
-            IFamousPeopleService famousPeopleService)
+            IFamousPeopleService famousPeopleService,
+            IDialogService dialogService)
             : base(navigationService)
         {
             this.famousPeopleService = famousPeopleService;
-
+            this.dialogService = dialogService;
             ItemTappedCommand = new DelegateCommand<object>(async (Oid) => await ItemTappedCommandExecute(Oid));
         }
 
@@ -82,8 +85,20 @@ namespace HistoryMobile.ViewModels
             this.CategoryOid = CategoryOid;
             this.Title = CategoryOid;
 
-            this.FamousPeoples = new ObservableCollection<FamousPeople>(
-                famousPeopleService.GetByCategory(CategoryOid));
+            this.IsBusy = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    this.FamousPeoples = new ObservableCollection<FamousPeople>(
+                    famousPeopleService.GetByCategory(CategoryOid));
+                }
+                catch(Exception ex)
+                {
+                    dialogService.ShowDialogAsync(ex.Message);
+                }
+                this.IsBusy = false;
+            });
         }
     }
 }

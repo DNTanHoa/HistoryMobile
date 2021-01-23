@@ -9,59 +9,82 @@
              x:Class="HistoryMobile.Views.FamousPeoplePage">
     <StackLayout>
         <ScrollView>
-            <ListView HasUnevenRows="True"
+            <Grid RowSpacing="0"
+                  Margin="0"
+                  Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListView HasUnevenRows="True"
                       SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                       ItemsSource="{Binding Categories}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame Padding="0"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="0"
                                    Margin="3"
                                    CornerRadius="9"
                                    BorderColor="Purple">
-                                <Grid Padding="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <circleImage:CircleImage Source="{Binding Image}"
+                                    <Grid Padding="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <circleImage:CircleImage Source="{Binding Image}"
                                                          Grid.Column="0"
                                                          BorderColor="Purple"
                                                          BorderThickness="1"
                                                          Aspect="AspectFill"
                                                          WidthRequest="50"
                                                          HeightRequest="50"/>
-                                    <StackLayout Grid.Column="1" 
+                                        <StackLayout Grid.Column="1" 
                                                  Spacing="0">
-                                        <Label Text="{Binding Name}"
+                                            <Label Text="{Binding Name}"
                                                FontSize="Medium"
                                                Margin="0"
                                                Padding="0"
                                                TextColor="Navy"></Label>
-                                        <Label Text="{Binding Summary}"
+                                            <Label Text="{Binding Summary}"
                                                FontSize="14"
                                                Margin="0"
                                                Padding="0"
                                                TextColor="DarkGray"></Label>
-                                    </StackLayout>
-                                    <StackLayout Grid.Column="2"
+                                        </StackLayout>
+                                        <StackLayout Grid.Column="2"
                                                  VerticalOptions="Center">
-                                        <Image Source="chevronright"
+                                            <Image Source="chevronright"
                                                HeightRequest="25"
                                                VerticalOptions="Center"
                                                Aspect="AspectFill"
                                                WidthRequest="25"></Image>
-                                    </StackLayout>
-                                </Grid>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Behaviors>
-                    <prism:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" />
-                </ListView.Behaviors>
-            </ListView>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Behaviors>
+                        <prism:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" />
+                    </ListView.Behaviors>
+                </ListView>
+                <StackLayout VerticalOptions="CenterAndExpand"
+                             IsVisible="{Binding IsBusy}"
+                             HorizontalOptions="FillAndExpand">
+                    <Frame BorderColor="Navy"
+                           Padding="10"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           CornerRadius="8">
+                        <StackLayout Orientation="Horizontal">
+                            <ActivityIndicator IsRunning="True"
+                                   Color="Navy"/>
+                            <Label Text="Đang tải..."
+                                   VerticalOptions="CenterAndExpand"></Label>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </Grid>
         </ScrollView>
     </StackLayout>
 </ContentPage>

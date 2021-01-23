@@ -3,6 +3,7 @@ using HistoryMobile.Services;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,28 @@ namespace HistoryMobile.ViewModels
         private readonly ICategoryService categoryService;
 
         public FamousPeoplePageViewModel(INavigationService navigationService,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IDialogService dialogService)
             : base(navigationService)
         {
             Title = "Nhân vật lịch sử";
             this.categoryService = categoryService;
 
             ItemTappedCommand = new DelegateCommand(async () => await ItemTappedCommandExecute());
-
-            Categories = categoryService.GetCategoryFamousPeople();
+            
+            this.IsBusy = true;
+            Task.Run(() =>
+            {
+                try
+                {
+                    Categories = categoryService.GetCategoryFamousPeople();
+                }
+                catch(Exception ex)
+                {
+                    dialogService.ShowDialogAsync(ex.Message);
+                }
+                this.IsBusy = false;
+            });
         }
 
         private List<CategoryFamousPeople> categories;
@@ -59,8 +73,13 @@ namespace HistoryMobile.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            
             base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            Categories = categoryService.GetCategoryFamousPeople();
         }
     }
 }

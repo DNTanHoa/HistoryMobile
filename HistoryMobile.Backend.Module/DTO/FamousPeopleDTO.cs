@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HistoryMobile.Models
+namespace HistoryMobile.Backend.Module.DTO
 {
-    public class FamousPeople
+    public class FamousPeopleDTO
     {
-        public string Oid { get; set; }
-
-        public string CategoryOid { get; set; }
+        public string Code { get; set; }
 
         public string Image { get; set; }
 

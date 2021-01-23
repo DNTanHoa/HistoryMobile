@@ -6,6 +6,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace HistoryMobile.ViewModels
 {
@@ -40,6 +41,15 @@ namespace HistoryMobile.ViewModels
                 SetProperty(ref selectedVideo, value);
                 RaisePropertyChanged(nameof(SelectedVideo));
             }
+        }
+
+        public HtmlWebViewSource Test
+        {
+            get => new HtmlWebViewSource
+            {
+                Html = "<iframe width='100%' height='100%' src='https://www.youtube.com/embed/hmmIVysAxPM' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>",
+            };
+            set { }
         }
 
         public override void OnNavigatedFrom(INavigationParameters parameters)

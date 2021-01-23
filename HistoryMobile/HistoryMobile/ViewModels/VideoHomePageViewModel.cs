@@ -25,9 +25,18 @@ namespace HistoryMobile.ViewModels
             
             ItemTappedCommand = new DelegateCommand(async () => await ItemTappedCommandExecute());
 
+            this.IsBusy = true;
             Task.Run(() =>
             {
-                this.Categories = categoryService.GetCategoryVideo();
+                try
+                {
+                    this.Categories = categoryService.GetCategoryVideo();
+                }
+                catch(Exception ex)
+                {
+                    dialogService.ShowDialogAsync(ex.Message);
+                }
+                this.IsBusy = false;
             });
         }
 

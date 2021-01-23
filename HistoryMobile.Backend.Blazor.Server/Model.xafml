@@ -2,6 +2,7 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="SyncCategoryFamousPeopleFirebase" ImageName="ModelEditor_Localization_Localized" />
       <Action Id="SyncFirebase" ImageName="ModelEditor_Localization_Localized" />
       <Action Id="SyncVideoFirebase" ImageName="ModelEditor_Localization_Localized" />
     </Actions>

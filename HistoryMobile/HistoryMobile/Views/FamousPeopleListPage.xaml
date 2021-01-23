@@ -8,61 +8,89 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              prism:Navigation.CanNavigate="True"
              x:Class="HistoryMobile.Views.FamousPeopleListPage">
-    <RefreshView>
-        <ScrollView>
-            <StackLayout>
-                <StackLayout HeightRequest="50"
-                             Padding="5"
-                             Orientation="Horizontal"
-                             BackgroundColor="Navy">
-                    <Image Source="back"
-                           HeightRequest="30"
-                           WidthRequest="30"
-                           VerticalOptions="Center">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BackCommand}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Label Text="{Binding Title}"
-                           FontSize="22"
-                           TextColor="White"
-                           VerticalOptions="Center"></Label>
-                </StackLayout>
-                <SearchBar Placeholder="Tìm kiếm (tên)..."></SearchBar>
-                <ListView ItemsSource="{Binding FamousPeoples}"
-                          SelectedItem="{Binding SelectedFamousPeople, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
-                          HasUnevenRows="True">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid Padding="5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <circleImage:CircleImage Grid.Column="0"
-                                        Source="{Binding Image}"></circleImage:CircleImage>
-                                    <StackLayout Grid.Column="1" Spacing="0">
-                                        <Label Text="{Binding Title}"
-                                               Margin="0"
-                                               FontAttributes="Bold"
-                                               FontSize="Medium"
-                                               LineBreakMode="WordWrap"
-                                               TextColor="Navy"></Label>
-                                        <Label Text="{Binding Summary}"
-                                               MaxLines="100"
-                                               LineBreakMode="WordWrap"></Label>
-                                    </StackLayout>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Behaviors>
-                        <prism:EventToCommandBehavior EventName="ItemTapped"
-                                                      Command="{Binding ItemTappedCommand}"/>
-                    </ListView.Behaviors>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
-    </RefreshView>
+    <StackLayout>
+        <StackLayout HeightRequest="50"
+                            Padding="5"
+                            Orientation="Horizontal"
+                            BackgroundColor="Navy">
+            <Image Source="back"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="{Binding Title}"
+                        FontSize="22"
+                        TextColor="White"
+                        VerticalOptions="Center"></Label>
+        </StackLayout>
+        <SearchBar Placeholder="Tìm kiếm (tên)..."></SearchBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <AbsoluteLayout VerticalOptions="CenterAndExpand"
+                         IsVisible="{Binding IsBusy}"
+                         BackgroundColor="White"
+                         HorizontalOptions="CenterAndExpand">
+                <Frame BorderColor="Navy"
+                           Padding="10"
+                       BackgroundColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           CornerRadius="8">
+                    <StackLayout Orientation="Horizontal">
+                        <ActivityIndicator IsRunning="True"
+                                   Color="Navy"/>
+                        <Label Text="Đang tải..."
+                                   VerticalOptions="CenterAndExpand"></Label>
+                    </StackLayout>
+                </Frame>
+            </AbsoluteLayout>
+            <RefreshView>
+                <ScrollView>
+                    <ListView ItemsSource="{Binding FamousPeoples}"
+                        SelectedItem="{Binding SelectedFamousPeople, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
+                        HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <circleImage:CircleImage Grid.Column="0"
+                                                            HeightRequest="80"
+                                                            WidthRequest="80"
+                                                            BorderColor="Purple"
+                                                            BorderThickness="1"
+                                                            Aspect="Fill"
+                                    Source="{Binding Image}"></circleImage:CircleImage>
+                                        <StackLayout Grid.Column="1" Spacing="0">
+                                            <Label Text="{Binding Title}"
+                                            Margin="0"
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            LineBreakMode="WordWrap"
+                                            TextColor="Navy"></Label>
+                                            <Label Text="{Binding Summary}"
+                                            MaxLines="100"
+                                            LineBreakMode="WordWrap"></Label>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Behaviors>
+                            <prism:EventToCommandBehavior EventName="ItemTapped"
+                                                    Command="{Binding ItemTappedCommand}"/>
+                        </ListView.Behaviors>
+                    </ListView>
+                </ScrollView>
+            </RefreshView>
+        </Grid>
+    </StackLayout>
 </ContentPage>

@@ -39,7 +39,7 @@ namespace HistoryMobile
 
             containerRegistry.RegisterSingleton<IHistoryEventService, MockHistoryEventService>();
             containerRegistry.RegisterSingleton<ICategoryService, CategoryService>();
-            containerRegistry.RegisterSingleton<IFamousPeopleService, MockFamousPeopleService>();
+            containerRegistry.RegisterSingleton<IFamousPeopleService, FamousPeopleService>();
             containerRegistry.RegisterSingleton<IVideoService, VideoService>();
 
             #endregion

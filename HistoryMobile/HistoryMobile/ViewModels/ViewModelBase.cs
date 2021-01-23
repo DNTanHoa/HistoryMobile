@@ -19,6 +19,17 @@ namespace HistoryMobile.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get => isBusy;
+            set 
+            {
+                SetProperty(ref isBusy, value);
+                RaisePropertyChanged(nameof(IsBusy));
+            }
+        }
+
         public ViewModelBase(INavigationService navigationService)
         {
             NavigationService = navigationService;

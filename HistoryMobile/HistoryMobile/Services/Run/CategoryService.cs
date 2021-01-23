@@ -14,7 +14,7 @@ namespace HistoryMobile.Services
 
         public List<CategoryFamousPeople> GetCategoryFamousPeople()
         {
-            return MockCategoryFamousPeople;
+            return FirebaseService.Get<CategoryFamousPeople>("/CategoryFamousPeople");
         }
 
         public List<CategoryVideo> GetCategoryVideo()

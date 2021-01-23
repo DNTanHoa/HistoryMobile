@@ -4,6 +4,7 @@ using HistoryMobile.Backend.Module.DTO;
 using HistoryMobile.Backend.Module.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HistoryMobile.Backend.Module.Controllers
@@ -47,6 +48,52 @@ namespace HistoryMobile.Backend.Module.Controllers
                     };
                     var syncResult = FirebaseService.Insert("Videos/", data);
                     video.FirebaseSynced = syncResult;
+                    objectSpace.CommitChanges();
+                }
+            }
+        }
+
+        public static void SyncCategoryFamousPeopleVideo(
+            IObjectSpace objectSpace,
+            List<CategoryFamousPeople> Categories)
+        {
+            foreach (var category in Categories)
+            {
+                if (!category.FirebaseSynced)
+                {
+                    var data = new CategoryFamousPeopleDTO
+                    {
+                        Code = category.Code,
+                        Name = category.Name,
+                        Image = category.Image,
+                        Summary = category.Summary
+                    };
+                    var syncResult = FirebaseService.Insert("CategoryFamousPeople/", data);
+                    category.FirebaseSynced = syncResult;
+                    objectSpace.CommitChanges();
+                }
+            }
+        }
+
+        public static void SyncFamousPeople(
+            IObjectSpace objectSpace,
+            List<FamousPeople> famousPeople)
+        {
+            foreach (var item in famousPeople)
+            {
+                if(!item.FirebaseSynced)
+                {
+                    var data = new FamousPeopleDTO
+                    {
+                        Code = item.Code,
+                        Title = item.Title,
+                        Image = item.Image,
+                        Summary = item.Summary,
+                        Detail = item.Detail,
+                        CategoryOids = item.CategoryOids.Select(item => item.Name).ToList()
+                    };
+                    var syncResult = FirebaseService.Insert("FamousPeople/", data);
+                    item.FirebaseSynced = syncResult;
                     objectSpace.CommitChanges();
                 }
             }
